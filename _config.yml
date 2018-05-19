@@ -1,0 +1,105 @@
+# Site settings
+title: 东方VS清扬
+SEOTitle: DFVSQY | Blog
+header-img: img/home-bg.jpg
+email: dfvsqy@gmail.com
+description: "互联网 编码 程序 极客 DFVSQY 东方VS清扬 游戏开发"
+keyword: "DFVSQY 东方VS清扬"
+url: "http://www.dfvsqy.top"              # your host, for absolute URL
+baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
+
+
+
+# SNS settings
+RSS: false
+# weibo_username:     huxpro
+# zhihu_username:     huxpro
+github_username:    DFVSQY
+# twitter_username:   huxpro
+#facebook_username:  huxpro
+# linkedin_username:  firstname-lastname-idxxxx
+
+
+
+# Build settings
+# from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
+highlighter: rouge
+permalink: pretty
+paginate: 10
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md","README.zh.md"]
+anchorjs: false                          # if you want to customize anchor. check out line:181 of `post.html`
+
+
+
+# Plugins
+# from PR#40, to support local preview for Jekyll 3.0
+plugins: [jekyll-paginate]
+
+
+
+# Markdown settings
+# replace redcarpet to kramdown,
+# although redcarpet can auto highlight code, the lack of header-id make the catalog impossible, so I switch to kramdown
+# document: http://jekyllrb.com/docs/configuration/#kramdown
+markdown: kramdown
+kramdown:
+  input: GFM                            # use Github Flavored Markdown !important
+
+
+
+# Disqus settings
+# disqus_username: hux
+
+# Netease setttings
+# netease_comment: false
+
+
+
+# Analytics settings
+# Baidu Analytics 
+# ba_track_id: [your track id]
+
+# Google Analytics
+# ga_track_id: 'UA-49627206-1'            # Format: UA-xxxxxx-xx
+# ga_domain: huangxuan.me
+
+
+
+# Sidebar settings
+sidebar: true                           # whether or not using Sidebar.
+sidebar-about-description: "大道无形 万剑自生<br>心如止水可一剑诛仙"
+sidebar-avatar: /img/avatar_dfvsqy.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+
+
+
+# Featured Tags
+featured-tags: false                     # whether or not using Feature-Tags
+featured-condition-size: 1              # A tag will be featured if the size of it is more than this condition value
+
+
+
+# Progressive Web Apps
+chrome-tab-theme-color: "#000000"
+service-worker: true
+
+
+
+# Friends
+friends: [
+    {
+        title: "All IT EBooks",
+        href: "http://www.allitebooks.com/"
+    },
+    {
+        title: "图灵社区",
+        href: "http://www.ituring.com.cn/"
+    },
+    {
+        title: "豆瓣读书",
+        href: "https://book.douban.com/"
+    },
+    {
+        title: "计算机书籍控",
+        href: "http://bestcbooks.com/"
+    }
+]
