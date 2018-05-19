@@ -1,6 +1,7 @@
 ---
 layout: post
 title: 首篇
+catalog: false
 tags:
     - 杂记
 author: 东方VS清扬
