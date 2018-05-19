@@ -53,7 +53,8 @@ kramdown:
 # Netease setttings
 # netease_comment: false
 
-
+# gittalk settings
+gittalk_comment: true
 
 # Analytics settings
 # Baidu Analytics 
