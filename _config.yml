@@ -58,7 +58,7 @@ gittalk_comment: true
 
 # Analytics settings
 # Baidu Analytics 
-# ba_track_id: [your track id]
+ba_track_id: [ed597a3407f2e9666f7142f43ffb7ed8]
 
 # Google Analytics
 # ga_track_id: 'UA-49627206-1'            # Format: UA-xxxxxx-xx
