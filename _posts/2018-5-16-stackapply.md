@@ -19,7 +19,7 @@ author: 东方VS清扬
 为了不使问题复杂化仅了解其基本核心思想，我们仅考虑加减乘除四则运算，并且算术表达式每步计算均添加括号（无论其优先级）。
 
 ##### 代码编写：
-~~~C#
+~~~c#
 static double ParseExpression(string exp)
 {
     Stack<char> ops = new Stack<char>();
@@ -57,7 +57,7 @@ static double ParseExpression(string exp)
 
 
 ##### 结果测试:
-~~~C#
+~~~c#
 static void Main(string[] args)
 {
     string exp = "(5 * (((3 + 7) / 2) - 2))";

@@ -13,7 +13,7 @@ author: 东方VS清扬
 基本思想：`设函数 _gcd(m,n)_ 用于求解m和n的最大公约数，则 _gcd(m,n) = gcd(n,m mod n)_.`
 
 ##### 算法编写：
-~~~C#
+~~~c#
 static int Gcd(int m, int n)
 {
     if (m == n) return m;
@@ -28,7 +28,7 @@ static int Gcd(int m, int n)
 ~~~
 
 ##### 结果测试：
-~~~C#
+~~~c#
 static void Main(string[] args)
 {
     int m = 40, n = 56;
