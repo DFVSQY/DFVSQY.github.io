@@ -55,6 +55,13 @@ kramdown:
 
 # gittalk settings
 gittalk_comment: true
+gitalk:
+  clientID: 462df3b3c1e58aa4b029
+  clientSecret: 4c57d2e5e2a3d0a24cd32be45638195f9bb25549
+  repo: DFVSQY.github.io
+  owner: DFVSQY
+  admin: DFVSQY
+
 
 # Analytics settings
 # Baidu Analytics 

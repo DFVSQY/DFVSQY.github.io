@@ -209,21 +209,24 @@ layout: default
 <!-- disqus 公共JS代码 end -->
 {% endif %}
 
+
 {% if site.gittalk_comment %}
+<!-- start gittalk评论系统 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
 <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 <script>
     var gitalk = new Gitalk({
-        clientID: '462df3b3c1e58aa4b029',
-        clientSecret: '4c57d2e5e2a3d0a24cd32be45638195f9bb25549',
-        repo: 'DFVSQY.github.io',
-        owner: 'DFVSQY',
-        admin: ['DFVSQY'],
+        clientID: '{{ site.gitalk.clientID }}',
+        clientSecret: '{{ site.gitalk.clientSecret }}',
+        repo: '{{ site.gitalk.repo }}',
+        owner: '{{ site.gitalk.owner }}',
+        admin: ['{{ site.gitalk.owner }}'], 
         language: 'zh-CN',
         distractionFreeMode: false 
-        })
+    })
     gitalk.render('gitalk-container')
 </script>
+<!-- end gittalk评论系统 -->
 {% endif %}
 
 
