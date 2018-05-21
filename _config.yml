@@ -102,5 +102,9 @@ friends: [
     {
         title: "计算机书籍控",
         href: "http://bestcbooks.com/"
+    },
+    {
+        title: "鸟哥私房菜",
+        href: "http://linux.vbird.org/"
     }
 ]
