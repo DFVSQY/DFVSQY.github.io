@@ -337,7 +337,7 @@ h4 {
   font-size: 21px;
 }
 a {
-  color: #404040;
+  color: #000000;
 }
 a:hover,
 a:focus {
@@ -648,14 +648,14 @@ pre code {
     transition: transform 0.3s;
   }
   .navbar-custom.is-fixed .navbar-brand {
-    color: #404040;
+    color: #000000;
   }
   .navbar-custom.is-fixed .navbar-brand:hover,
   .navbar-custom.is-fixed .navbar-brand:focus {
     color: #0085a1;
   }
   .navbar-custom.is-fixed .nav li a {
-    color: #404040;
+    color: #000000;
   }
   .navbar-custom.is-fixed .nav li a:hover,
   .navbar-custom.is-fixed .nav li a:focus {
@@ -802,14 +802,14 @@ pre code {
 }
 .post-preview > .post-meta {
   font-family: 'Lora', 'Times New Roman', serif;
-  color: #444444;
+  color: #000000;
   font-size: 16px;
   font-style: italic;
   margin-top: 0;
 }
 .post-preview > .post-meta > a {
   text-decoration: none;
-  color: #404040;
+  color: #000000;
 }
 .post-preview > .post-meta > a:hover,
 .post-preview > .post-meta > a:focus {
@@ -978,7 +978,7 @@ form .row:first-child .floating-label-form-group {
   }
 }
 .pager li > a {
-  color: #404040;
+  color: #000000;
 }
 .pager li > a:hover,
 .pager li > a:focus {
@@ -995,7 +995,7 @@ form .row:first-child .floating-label-form-group {
 .pager .disabled > a:focus,
 .pager .disabled > span {
   color: #cccccc;
-  background-color: #404040;
+  background-color: #000000;
   cursor: not-allowed;
 }
 ::-moz-selection {
