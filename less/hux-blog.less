@@ -3,6 +3,7 @@
 @import "sidebar.less";
 @import "side-catalog.less";
 @import "snackbar.less";
+@import "highlight.less";
 
 // Global Components
 
@@ -11,9 +12,12 @@ body {
 	font-size: 16px;
 	// Hux mpdify to 16px (Mobile First), and increase to 20px while 768+ width
 	color: @gray-dark;
-	// color: #000000;
 	//-webkit-user-select:text; //对于 Blog 还是先不开启这句。
 	overflow-x : hidden;
+
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 // -- Typography
@@ -95,11 +99,13 @@ select{
 	}
 }
 
-
 // override table style in bootstrap
-.table th, .table td{
-	border: 1px solid #eee !important;
-}
+table.table > tbody, table.table > thead {
+	th,
+	td {
+	  border: 1px solid #eee;
+	}
+  }
 
 hr.small {
 	max-width: 100px;
@@ -108,7 +114,8 @@ hr.small {
 	border-color: white;
 }
 // add by Hux
-pre,.table-responsive{
+pre,
+.table-responsive{
 	// sometimes you should use vendor-feature.
 	-webkit-overflow-scrolling: touch;
 }
@@ -160,7 +167,8 @@ pre code{
 			margin-top: 5px;
 		}
 	}
-	ul,ol{
+	ul,
+	ol{
 		margin-bottom: 40px;
 		@media screen and (max-width: 768px){
 			&{
@@ -173,15 +181,23 @@ pre code{
 			}
 		}
 	}
-	ol ol, ol ul, ul ol, ul ul{
-		margin-bottom: 5px
+	ol ol, 
+	ol ul, 
+	ul ol, 
+	ul ul {
+		margin-bottom: 5px;
 	}
-	li{
-		p{
+	li {
+		p {
 			margin: 0;
 			margin-bottom: 5px;
 		}
-		h1,h2,h3,h4,h5,h6{
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
 			line-height: 2;
 			margin-top: 20px;
 		}
@@ -189,8 +205,12 @@ pre code{
 	// V1.6 Hux display title by default.
 	.pager li{
 		width: 48%;
-		&.next{ float: right};
-		&.previous{ float: left};
+		&.next{ 
+			float: right
+		};
+		&.previous{ 
+			float: left
+		};
 		> a {
 			width: 100%;
 			> span{
@@ -201,8 +221,6 @@ pre code{
 		}
 	}
 }
-
-
 
 // Navigation
 
@@ -219,7 +237,8 @@ pre code{
 		border: none;
 		background: white;
 		box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
-		box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.239216) 0px 1px 4px;
+		box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px,
+		 rgba(0, 0, 0, 0.239216) 0px 1px 4px;
 		border-radius: 2px;
 		width: 170px;
 	}
@@ -243,14 +262,16 @@ pre code{
 			font-size: 13px;
 			line-height: 28px;
 		}
-		.navbar-collapse{	// the navbar do height-transition
-			height: 0px; 	// to solve container-mask-tags issue (default state).
+		.navbar-collapse{	
+			// the navbar do height-transition
+			height: 0px; // to solve container-mask-tags issue (default state).
 			transform: scaleY(0);
 			transform-origin: top right;
 			transition: transform 400ms cubic-bezier(0.32, 1, 0.23, 1) 0ms;
 			-webkit-transform: scaleY(0);
 			-webkit-transform-origin: top right;
-			-webkit-transition: -webkit-transform 400ms cubic-bezier(0.32, 1, 0.23, 1) 0ms;
+			-webkit-transition: -webkit-transform 400ms cubic-bezier(0.32, 1, 0.23, 1) 
+			0ms;
 		}
 		li{
 			opacity: 0;
@@ -264,15 +285,16 @@ pre code{
 			transform: scaleX(1);
 			-webkit-transform: scaleX(1);
 			opacity: 1;
-			transition: all 250ms cubic-bezier(0.23,1,0.32,1) 0ms;
-			-webkit-transition: all 250ms cubic-bezier(0.23,1,0.32,1) 0ms;
-			.navbar-collapse{
+			transition: all 250ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+			-webkit-transition: all 250ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+			.navbar-collapse {
 				transform: scaleY(1);
 				-webkit-transform: scaleY(1);
 				transition: transform 500ms cubic-bezier(0.23, 1, 0.32, 1);
-				-webkit-transition: -webkit-transform 500ms cubic-bezier(0.23, 1, 0.32, 1);
+				-webkit-transition: -webkit-transform 500ms
+				 cubic-bezier(0.23, 1, 0.32, 1);
 			}
-			li{
+			li {
 				opacity: 1;
 				transition: opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 205ms;
 				-webkit-transition: opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 205ms;
@@ -492,7 +514,6 @@ pre code{
 
 .post-preview {
 	> a {
-		// color: @gray-dark;
 		color: #000000;
 		&:hover,
 		&:focus {
@@ -515,7 +536,6 @@ pre code{
 	}
 	> .post-meta {
 		.serif;
-		// color: @gray;
 		color:#000000;
 		font-size: 16px;
 		font-style: italic;
@@ -548,11 +568,11 @@ pre code{
 }
 
 // Hux add home-page post-content-preview
-.post-content-preview{
+.post-content-preview {
     font-size: 13px;
     // font-style: italic;
-    color:#696969;
-    &:hover{
+    color: #696969;
+    &:hover {
         color: @brand-primary;
     }
     @media only screen and (min-width: 768px) {
@@ -762,11 +782,11 @@ img::-moz-selection {
 	background: transparent;
 }
 
-
 /* Hux add tags support */
 .tags{
 	margin-bottom: -5px;
-	a,.tag{
+	a,
+	.tag{
 		display: inline-block;
 		border: 1px solid rgba(255,255,255,0.8);
 		border-radius: 999em;
@@ -777,12 +797,12 @@ img::-moz-selection {
 		text-decoration: none;
 		margin: 0 1px;
 		margin-bottom: 6px;
-		&:hover, &:active{
-			color:white;
+		&:hover, 
+		&:active {
+			color: white;
 			border-color: white;
-			background-color: rgba(255,255,255,0.4);
+			background-color: rgba(255, 255, 255, 0.4);
 			text-decoration: none;
-
 		}
 		@media only screen and (min-width: 768px) {
 			margin-right: 5px;
@@ -795,19 +815,20 @@ img::-moz-selection {
 	@media only screen and (min-width: 768px) {
 		padding:55px 0;
 	}
-
 }
 // tag_cloud
 #tag_cloud{
 	margin:20px 0 15px 0;
-	a,.tag{
+	a,
+	.tag{
 		font-size: 14px;
 		border: none;
 		line-height: 28px;
 		margin: 0 2px;
 		margin-bottom: 8px;
 		background: #D6D6D6;
-		&:hover, &:active{
+		&:hover, 
+		&:active{
 			background-color: #0085a1 !important;
 		}
 	}
@@ -846,6 +867,7 @@ img::-moz-selection {
 
 // Customize Style for Posts in One-Tag-List
 .one-tag-list{
+	margin: 20px 0 15px 0;
 	.tag-text{
 		font-weight: 200;
 		.sans-serif;
@@ -898,10 +920,10 @@ img::-moz-selection {
 	margin: 1.5em auto 1.6em auto;
 }
 
-
 /* Hux Optimize UserExperience */
 .navbar-default .navbar-toggle {
-	&:focus, &:hover{
+	&:focus, 
+	&:hover{
 		background-color: inherit;
 	}
   	&:active{
@@ -929,7 +951,6 @@ img::-moz-selection {
 	}
 }
 
-
 /* Hux customize Style for Duoshuo */
 .comment{
 	margin-top: 20px;
@@ -943,7 +964,6 @@ img::-moz-selection {
 				text-shadow: none;
 			}
 			a.ds-thread-liked{
-
 			}
 			li.ds-tab a.ds-current{
 				border:1px solid #ddd;
@@ -979,7 +999,6 @@ img::-moz-selection {
 #ds-smilies-tooltip ul.ds-smilies-tabs li a {
 	background: white !important;
 }
-
 
 // Hux fullscreen mode in 404.html
 
@@ -1029,6 +1048,3 @@ img::-moz-selection {
 .page-fullscreen footer .copyright a:hover{
 	color: #ddd;
 }
-
-
-
