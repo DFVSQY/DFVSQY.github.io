@@ -16,8 +16,10 @@
             "label": "更新Gems",
             "type": "shell",
             "command": "bundle update",
-            "group": "build",
-            "problemMatcher": []
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ]
 }
