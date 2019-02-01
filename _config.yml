@@ -62,7 +62,7 @@ kramdown:
 gittalk_comment: true
 gitalk:
   clientID: 462df3b3c1e58aa4b029
-  clientSecret: 4c57d2e5e2a3d0a24cd32be45638195f9bb25549
+  clientSecret: e58f614c9aec07d807e7ee2a5a5b398e4739d22c
   repo: DFVSQY.github.io
   owner: DFVSQY
   admin: DFVSQY
