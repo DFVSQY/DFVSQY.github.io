@@ -118,5 +118,9 @@ friends: [
     {
         title: "鸟哥私房菜",
         href: "http://linux.vbird.org/"
+    },
+    {
+        title: "云风Blog",
+        href: "https://blog.codingnow.com/"
     }
 ]
