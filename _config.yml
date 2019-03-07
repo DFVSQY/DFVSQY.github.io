@@ -122,5 +122,9 @@ friends: [
     {
         title: "云风Blog",
         href: "https://blog.codingnow.com/"
+    },
+    {
+        title: "冯乐乐Blog",
+        href: "https://candycat1992.github.io/"
     }
 ]
