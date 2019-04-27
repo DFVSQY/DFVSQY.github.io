@@ -82,8 +82,60 @@ double d = 3.1415LF, a = 32.2lF;
 
 布尔变量的可选值为`true`或`false`。
 
+GLSL相比于C语言有着更高的类型安全，因为GLSL允许更少的类型隐式转换，例如：
+```
+int i = false
+```
+上述代码会导致GLSL的编译错误，GLSL中所允许的隐式类型转换如下：
 
+Type Needed | Can Be Implicitly Converted From
+---------|----------
+ uint    | int
+ float   | int,uint
+ double  | int,uint,float
 
+同样的规则也适用于由此组合而成的向量，矩阵类型，但转换规则不适用于数组和结构。对于其他所有的类型转换需显式使用转换构造函数，如下：
+~~~
+float f = 10.0
+int ten = int(f);
+double d = 5.0LF;
+int five = int(d);
+~~~
+
+与C语言不同的是，GLSL中的函数支持函数重载。
+
+GLSL中对于由基本类型组合而成的向量，矩阵类型的支持如下：
+
+Base Type |  2D Vec  |  3D Vec  |  4D Vec  | Matrix Type
+----------|----------|----------|----------|-------------
+ float    | vec2     | vec3     | vec4     |mat2 mat3 mat4<br>mat2x2 mat2x3 mat2x4<br>mat3x2 mat3x3 mat3x4<br>mat4x2 mat4x3 mat4x4
+ double   | dvec2    | dvec3    | dvec4    |dmat2 dmat3 dmat4<br>dmat2x2 dmat2x3 dmat2x4<br>dmat3x2 dmat3x3 dmat3x4<br>dmat4x2 dmat4x3 dmat4x4
+ int      | ivec2    | ivec3    | ivec4    |    -
+ uint     | uvec2    | uvec3    | uvec4    |    -
+ bool     | bvec2    | bvec3    | bvec4    |    -
+
+对于矩阵类型，第一个维度数表示列数，第二个维度数表示行数。
+
+向量的初始化和类型转换与其对应的标量类似，同时向量的构造函数支持维度的收缩和扩展，如下：
+~~~
+// vector constructor
+vec3 velocity = vec3(2.0,2.0,2.0);
+dvec3 dvelocity = vec(2.0LE,2.0LE,2.0LE);
+
+// vector constructor, equal to vec3(2.0,2.0,2.0)
+vec3 velociy = vec3(2.0)
+
+// explicitly type convert
+ivec3 = ivec3(velocity);
+
+// truncate vector
+vec4 color;
+vec3 rgb = vec3(color);     // rgb only has three elements
+
+// lengthen vector
+vec3 white = vec3(1.0);
+vec4 translucent = vec4(white, 0.5);
+~~~
 
 
 
