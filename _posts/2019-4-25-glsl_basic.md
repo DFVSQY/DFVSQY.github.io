@@ -230,7 +230,6 @@ vec3 yVec = M[1];
 float yScale = M[2][0]
 ~~~
 
-
 未完待续！
 
 <!-- 
