@@ -118,5 +118,29 @@ friends: [
     {
         title: "鸟哥私房菜",
         href: "http://linux.vbird.org/"
+    },
+    {
+        title: "云风Blog",
+        href: "https://blog.codingnow.com/"
+    },
+    {
+        title: "冯乐乐Blog",
+        href: "https://candycat1992.github.io/"
+    },
+    {
+        title: "韦易笑Blog",
+        href: "http://www.skywind.me/blog/"
+    },
+    {
+        title: "SelfShadow",
+        href: "https://blog.selfshadow.com/"
+    },
+    {
+        title: "Simonschreibt",
+        href: "https://simonschreibt.de/"
+    },
+    {
+        title: "Iquilezles",
+        href: "http://www.iquilezles.org/index.html"
     }
 ]
