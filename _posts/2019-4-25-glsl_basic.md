@@ -114,7 +114,7 @@ Base Type |  2D Vec  |  3D Vec  |  4D Vec  | Matrix Type
  uint     | uvec2    | uvec3    | uvec4    |    -
  bool     | bvec2    | bvec3    | bvec4    |    -
 
-对于矩阵类型，第一个维度数表示列数，第二个维度数表示行数。
+对于矩阵类型，第一个维度数表示矩阵列数，第二个维度数表示矩阵行数。
 
 向量的初始化和类型转换与其对应的标量类似，同时向量的构造函数支持维度的收缩和扩展，如下：
 ~~~
@@ -137,11 +137,44 @@ vec3 white = vec3(1.0);
 vec4 translucent = vec4(white, 0.5);
 ~~~
 
+矩阵的初始化与其对应的标量类似，如下：
+~~~
+mat3 M1 = mat3(4.0, 0, 0,
+              0, 4.0, 0,
+              0, 0, 4.0);
 
+// equal to M1
+mat3 M2 = mat3(4.0)
 
+mat3 M3 = mat3(1.0, 2.0, 3.0,
+               4.0, 5.0, 6.0,
+               7.0, 8.0, 9.0);
 
+vec3 column1 = vec3(1.0, 2.0, 3.0);
+vec3 column2 = vec3(4.0, 5.0, 6.0);
+vec3 column3 = vec3(7.0, 8.0, 9.0);
 
+// equal to M3
+mat3 M4 = mat3(column1, column2, column3);
 
+vec2 column4 = vec2(1.0, 4.0);
+vec2 column5 = vec2(2.0, 5.0);
+vec2 column6 = vec2(3.0, 6.0);
+
+// equal to M3
+mat3 M5 = mat3(column4, 7.0, column5, 8.0, column6, 9.0);
+~~~
+`M3`,`M4`和`M5`均表示以下数学矩阵：
+
+$$
+ \left[
+ \begin{matrix}
+   1.0 & 4.0 & 7.0 \\
+   2.0 & 5.0 & 8.0 \\
+   3.0 & 6.0 & 9.0
+  \end{matrix}
+  \right]
+$$
 
 
 
