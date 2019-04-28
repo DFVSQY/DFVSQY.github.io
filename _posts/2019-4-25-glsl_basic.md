@@ -319,10 +319,26 @@ coeff[2];
 coeff[2].length();
 ~~~
 
+##### 存储修饰符
+GLSL变量在声明时可以指定存储修饰符，修饰符会影响到变量的相关行为，GLSL中支持的修饰符如下，当声明全局变量时相关行为会起作用：
+
+Type Modifier | Description
+--------------|----------
+ const        | Labels a variable as read-only. It will also be a compile-time constant if its initializer is a compile-time constant
+ in           | Specifies that the variable is an input to the shader stage
+ out          | Specifies that the variable is an output from a shader stage
+ uniform      | Specifies that the value is passed to the shader from the application and is constant across a given primitive
+ buffer       | Specifies read-write memory shared with the application. This memory is also referred to as a _shader storage buffer_
+ shared       | Specifies that the variables are shared within a local work group. This is used only in compute shaders
+
+
+
+
+
+
 未完待续！
 
 <!-- 
-##### Storage Qualifiers
 ##### 语句
 ##### Computational Invariance
 ##### Shader Preprocessor
