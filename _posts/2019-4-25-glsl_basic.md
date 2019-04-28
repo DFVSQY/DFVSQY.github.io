@@ -114,7 +114,7 @@ Base Type |  2D Vec  |  3D Vec  |  4D Vec  | Matrix Type
  uint     | uvec2    | uvec3    | uvec4    |    -
  bool     | bvec2    | bvec3    | bvec4    |    -
 
-对于矩阵类型，第一个维度数表示矩阵列数，第二个维度数表示矩阵行数。
+对于矩阵类型，第一个维度数表示对应数学矩阵的列数，第二个维度数表示对应数学矩阵的行数。
 
 向量的初始化和类型转换与其对应的标量类似，同时向量的构造函数支持维度的收缩和扩展，如下：
 ~~~ glsl
@@ -228,6 +228,95 @@ vec3 yVec = M[1];
 
 // 7.0
 float yScale = M[2][0]
+~~~
+
+GLSL同样支持结构体，如下：
+~~~ glsl
+// define a struct
+struct Particle
+{
+    float lifetime;
+    vec3 position;
+    vec3 velocity;
+}
+
+// construct a struct variable
+Particle p = Particle(10.0, pos, vel);
+
+// access an element
+float f = p.lifetime;
+~~~
+
+GLSL也支持任何类型的数组，同C语言一样使用`[]`进行索引，起始索引从0开始，但与C语言不同的是GLSL不支持负数索引与正数越界索引。从OpenGL4.3开始支持多维数组，即数组元素也可以是数组。
+
+数组的声明可以指定大小也可不指定，如下：
+~~~ glsl
+// declare with a size
+float coeff[3];
+
+// same to above
+float[3] coeff;
+
+// unsized, redeclare later with a size
+int indices[];
+~~~
+
+数组的初始化如下：
+~~~ glsl
+float coeff[3] = float[3]{2.38, 1.24, 7.65};
+
+// same to above
+float coeff[3] = float[]{2.38, 1.24, 7.65};
+~~~
+
+每一个数组对象都包含一个`length()`函数用于返回当前数组元素个数，如下：
+~~~ glsl
+for(int i = 0; i < coeff.length(); ++i)
+{
+    coeff[i] *= 2.0;
+}
+~~~
+
+向量和矩阵同数组一样也支持`length()`函数，向量`length()`返回组件的个数，矩阵`lenght()`返回所表示的数学矩阵所包含的列数，如下：
+~~~ glsl
+mat3x4 m;
+
+// number of columns in m: 3
+int c = m.length();
+
+// number of components in column vector 0: 4
+int r = m[0].length();
+~~~
+
+当数组，向量或者矩阵的长度在编译期可以确定时，`length()`会返回一个编译器常量，该常量可用于任何需要编译期常量的地方，如下：
+~~~ glsl
+mat4 m;
+
+// array of size matching the matrix size
+float diagonal[m.length()];
+
+// array of size matching the number of geometry shader input vertices
+float x[gl_in.length()];
+~~~
+
+对于绝大部分的数组，向量和矩阵来说，其长度都是在编译期间可以确定的，不过对于部分数组其长度需要在链接期间(link-time)才可以确定，例如在同一阶段来自多个Shader的情况下需要链接器(linker)推断数组尺寸。对于shader storage buffer objects，其长度需要到渲染时(render-time)才能确定。
+
+GLSL多维数组的使用类似于C语言，如下：
+~~~ glsl
+// an array of size 3 of array of size 5
+float coeff[3][5];
+
+// inner-dimension index is 1, outer is 2
+coeff[2][1] *= 2.0;
+
+// return 3
+coeff.length();
+
+// an one-dimensional array of size 5
+coeff[2];
+
+// return 5
+coeff[2].length();
 ~~~
 
 未完待续！
