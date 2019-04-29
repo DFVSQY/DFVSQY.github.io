@@ -331,9 +331,17 @@ Type Modifier | Description
  buffer       | Specifies read-write memory shared with the application. This memory is also referred to as a _shader storage buffer_
  shared       | Specifies that the variables are shared within a local work group. This is used only in compute shaders
 
+同C语言一样，`const`用于表示变量为只读类型，必须在声明时为该类型变量赋值。`in`用于表示流入shader的数据，每次执行shader时会根据输入数据自动更新对应变量。`out`用于表示流出shader的数据，比如顶点着色器输出的顶点的齐次坐标或片段着色器输出的颜色。`uniform`用于表示变量在shader执行前会被应用程序赋值，而且不会随着处理的vertex或者fragment不同而改变，该变量值直到下次应用程序指定新值时才会改变。`uniform`变量在所有被启用的shader阶段是共享的且必须被声明为全局变量。任何类型的变量(包括结构体和数组)都可以被声明为`uniform`类型，其值在shader中不可被改变只能由应用程序传入。
 
+当OpenGL链接shader程序时GLSL的编译器会为`uniform`变量创建一个 _table_，在应用程序中设置`uniform`变量的值时首先需要使用`glGetUniformLocation(GLuint program, const char* name)`函数获得该变量在 _table_ 中的索引，然后使用`glUniform*()`或者`glUniformMatrix*()`函数设置具体值，如下：
+~~~ c
+GLint timeLoc = glGetUniformLocation(program, "time");
+glUniform1f(timeLoc, 5.0f);
+~~~
 
+`buffer`类型是与应用程序共享大缓存时推荐的一种方式，其与`uniform`类型相似，只不过该类型变量可以在shader中被修改。
 
+`shared`类型的变量仅用于compute shader，该类型用于创建与 _local work group_ 共享的内存。
 
 
 未完待续！
