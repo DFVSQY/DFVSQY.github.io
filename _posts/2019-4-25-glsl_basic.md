@@ -89,10 +89,10 @@ int i = false
 上述代码会导致GLSL的编译错误，GLSL中所允许的隐式类型转换如下：
 
 Type Needed | Can Be Implicitly Converted From
----------|----------
- uint    | int
- float   | int,uint
- double  | int,uint,float
+------------|---------------------------------
+uint        | int
+float       | int,uint
+double      | int,uint,float
 
 同样的规则也适用于由此组合而成的向量，矩阵类型，但转换规则不适用于数组和结构。对于其他所有的类型转换需显式使用转换构造函数，如下：
 ~~~ glsl
@@ -106,13 +106,13 @@ int five = int(d);
 
 GLSL中对于由基本类型组合而成的向量，矩阵类型的支持如下：
 
-Base Type |  2D Vec  |  3D Vec  |  4D Vec  | Matrix Type
-----------|----------|----------|----------|-------------
- float    | vec2     | vec3     | vec4     |mat2 mat3 mat4<br>mat2x2 mat2x3 mat2x4<br>mat3x2 mat3x3 mat3x4<br>mat4x2 mat4x3 mat4x4
- double   | dvec2    | dvec3    | dvec4    |dmat2 dmat3 dmat4<br>dmat2x2 dmat2x3 dmat2x4<br>dmat3x2 dmat3x3 dmat3x4<br>dmat4x2 dmat4x3 dmat4x4
- int      | ivec2    | ivec3    | ivec4    |    -
- uint     | uvec2    | uvec3    | uvec4    |    -
- bool     | bvec2    | bvec3    | bvec4    |    -
+Base Type | 2D Vec | 3D Vec | 4D Vec | Matrix Type
+----------|--------|--------|--------|---------------------------------------------------------------------------------------------------
+float     | vec2   | vec3   | vec4   | mat2 mat3 mat4<br>mat2x2 mat2x3 mat2x4<br>mat3x2 mat3x3 mat3x4<br>mat4x2 mat4x3 mat4x4
+double    | dvec2  | dvec3  | dvec4  | dmat2 dmat3 dmat4<br>dmat2x2 dmat2x3 dmat2x4<br>dmat3x2 dmat3x3 dmat3x4<br>dmat4x2 dmat4x3 dmat4x4
+int       | ivec2  | ivec3  | ivec4  | -
+uint      | uvec2  | uvec3  | uvec4  | -
+bool      | bvec2  | bvec3  | bvec4  | -
 
 对于矩阵类型，第一个维度数表示对应数学矩阵的列数，第二个维度数表示对应数学矩阵的行数。
 
@@ -157,12 +157,12 @@ vec3 column3 = vec3(7.0, 8.0, 9.0);
 // equal to M3
 mat3 M4 = mat3(column1, column2, column3);
 
-vec2 column4 = vec2(1.0, 4.0);
-vec2 column5 = vec2(2.0, 5.0);
-vec2 column6 = vec2(3.0, 6.0);
+vec2 column4 = vec2(1.0, 2.0);
+vec2 column5 = vec2(4.0, 5.0);
+vec2 column6 = vec2(7.0, 8.0);
 
 // equal to M3
-mat3 M5 = mat3(column4, 7.0, column5, 8.0, column6, 9.0);
+mat3 M5 = mat3(column4, 3.0, column5, 6.0, column6, 9.0);
 ~~~
 `M3`,`M4`和`M5`均表示以下数学矩阵：
 
@@ -196,10 +196,10 @@ float tex_p = tex[2];
 GLSL支持向量的三种名称组件集合，如下：
 
 Component Accessors | Description
---------------------|----------
- (x,y,z,w)          | Components associated with positions
- (r,g,b,a)          | Components associated with colors
- (s,t,p,q)          | Components associated with texture coordinates
+--------------------|-----------------------------------------------
+(x,y,z,w)           | Components associated with positions
+(r,g,b,a)           | Components associated with colors
+(s,t,p,q)           | Components associated with texture coordinates
 
 向量元素访问示例：
 ~~~ glsl
@@ -323,13 +323,13 @@ coeff[2].length();
 GLSL变量在声明时可以指定存储修饰符，修饰符会影响到变量的相关行为，GLSL中支持的修饰符如下，当声明全局变量时相关行为会起作用：
 
 Type Modifier | Description
---------------|----------
- const        | Labels a variable as read-only. It will also be a compile-time constant if its initializer is a compile-time constant
- in           | Specifies that the variable is an input to the shader stage
- out          | Specifies that the variable is an output from a shader stage
- uniform      | Specifies that the value is passed to the shader from the application and is constant across a given primitive
- buffer       | Specifies read-write memory shared with the application. This memory is also referred to as a _shader storage buffer_
- shared       | Specifies that the variables are shared within a local work group. This is used only in compute shaders
+--------------|----------------------------------------------------------------------------------------------------------------------
+const         | Labels a variable as read-only. It will also be a compile-time constant if its initializer is a compile-time constant
+in            | Specifies that the variable is an input to the shader stage
+out           | Specifies that the variable is an output from a shader stage
+uniform       | Specifies that the value is passed to the shader from the application and is constant across a given primitive
+buffer        | Specifies read-write memory shared with the application. This memory is also referred to as a _shader storage buffer_
+shared        | Specifies that the variables are shared within a local work group. This is used only in compute shaders
 
 同C语言一样，`const`用于表示变量为只读类型，必须在声明时为该类型变量赋值。`in`用于表示流入shader的数据，每次执行shader时会根据输入数据自动更新对应变量。`out`用于表示流出shader的数据，比如顶点着色器输出的顶点的齐次坐标或片段着色器输出的颜色。`uniform`用于表示变量在shader执行前会被应用程序赋值，而且不会随着处理的vertex或者fragment不同而改变，该变量值直到下次应用程序指定新值时才会改变。`uniform`变量在所有被启用的shader阶段是共享的且必须被声明为全局变量。任何类型的变量(包括结构体和数组)都可以被声明为`uniform`类型，其值在shader中不可被改变只能由应用程序传入。
 
@@ -343,11 +343,79 @@ glUniform1f(timeLoc, 5.0f);
 
 `shared`类型的变量仅用于compute shader，该类型用于创建与 _local work group_ 共享的内存。
 
+##### 语句
+GLSL支持的操作符和优先级如下表：
+
+Precedence | Operators                                           | Accepted Types                                                                       | Description
+-----------|-----------------------------------------------------|--------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1          | ()                                                  | -                                                                                    | Grouping of operations
+2          | []                                                  | arrays<br>matrices<br>vecotrs                                                        | Array subscripting
+3          | f()<br>.(period)<br>++ --<br>++ --<br>+ -<br>~<br>! | functions<br>structures<br>arithmetic<br>arithmetic<br>arithmetic<br>integer<br>bool | Function calls and constructors<br>Structure field or method access<br>Post-increment and -decrement<br>Pre-increment and -decrement<br>Unary explicit positive or negation<br>Unary bit-wise not<br>Unary logical not
+4          | * / %                                               | arithmetic                                                                           | Multiplicative operations
+5          | + -                                                 | arithmetic                                                                           | Additive operations
+6          | << >>                                               | integer                                                                              | Bit-wise operations
+7          | < > <= >=                                           | arithmetic                                                                           | Relational operations
+8          | == !=                                               | any                                                                                  | Equality operations
+9          | &                                                   | integer                                                                              | Bit-wise and
+10         | ^                                                   | integer                                                                              | Bit-wise exclusive or
+11         | \|                                                  | integer                                                                              | Bit-wise inclusive or
+12         | &&                                                  | bool                                                                                 | Logical and operation
+13         | ^^                                                  | bool                                                                                 | Logical exclusive-or operation
+14         | \|\|                                                | bool                                                                                 | Logical or operation
+15         | a ? b : c                                           | bool ? any : any                                                                     | Ternary selection operation
+16         | =<br>+= -=<br>*= /=<br>%= <<= >>=<br>&= ^= \|=      | any<br>arithmetic<br>arithmetic<br>integer<br>integer                                | Assignment<br>Arithmetic assignment<br><br><br><br>
+17         | ,                                                   | any                                                                                  | Sequence of operations
+_integer_：`int`, `uint` and `vectors` of them<br>
+_floating-point_：`float`, `double` and `vectors` of them and `matrices` of them<br>
+_arithmetic_：all _integer_ and _floating-point_ types<br>
+_any_：additionally includes `structures` and `arrays`
+
+在GLSL中大多数操作符都支持重载，即它们可操作受支持类型的不同集合。特别是在GLSL中算数操作符对于向量和矩阵都有相关的定义。例如：
+~~~ glsl
+// 向量的四则运算等同于对应的各元素的四则运算
+// c = vec3(1.1, 2.2, 3.3)
+// d = vec3(0.1, 0.4, 0.9)
+vec3 a = vec3(1.0, 2.0, 3.0);
+vec3 b = vec3(0.1, 0.2, 0.3);
+vec3 c = a + b; 
+vec3 d = a * b; 
+
+// 向量作为右操作数与矩阵相乘时被视为列向量
+// w = vec2(1. * 10. + 3. * 20., 2. * 10. + 4. * 20.)
+vec2 v = vec2(10., 20.);
+mat2 m = mat2(1., 2.,  3., 4.);
+vec2 w = m * v; 
+
+// 向量作为左操作数与矩阵相乘时被视为行向量
+// w = vec2(1. * 10. + 2. * 20., 3. * 10. + 4. * 20.)
+vec2 v = vec2(10., 20.);
+mat2 m = mat2(1., 2.,  3., 4.);
+vec2 w = v * m; 
+
+// 矩阵和矩阵相乘遵从矩阵乘法的数学原则
+// c = mat2(1. * 10. + 3. * 20., 2. * 10. + 4. * 20., 
+//          1. * 30. + 3. * 40., 2. * 30. + 4. * 40.)
+mat2 b = mat2(10., 20.,  30., 40.);
+mat2 a = mat2(1., 2.,  3., 4.);
+mat2 c = a * b; 
+
+// 向量和标量相乘等同于对应的各个元素和标量相乘
+// b = vec3(10.0, 20.0, 30.0)
+// c = vec3(10.0, 20.0, 30.0)
+float s = 10.0;
+vec3 a = vec3(1.0, 2.0, 3.0);
+vec3 b = s * a; 
+vec3 c = a * s; 
+
+// 矩阵和标量相乘等同于对应的各个元素和标量相乘
+float s = 10.0;
+mat3 m = mat3(1.0);
+mat3 m2 = s * m; // = mat3(10.0)
+mat3 m3 = m * s; // = mat3(10.0)
+~~~
 
 未完待续！
-
 <!-- 
-##### 语句
 ##### Computational Invariance
 ##### Shader Preprocessor
 ##### Compiler Control
