@@ -365,6 +365,7 @@ Precedence | Operators                                           | Accepted Type
 15         | a ? b : c                                           | bool ? any : any                                                                     | Ternary selection operation
 16         | =<br>+= -=<br>*= /=<br>%= <<= >>=<br>&= ^= \|=      | any<br>arithmetic<br>arithmetic<br>integer<br>integer                                | Assignment<br>Arithmetic assignment<br><br><br><br>
 17         | ,                                                   | any                                                                                  | Sequence of operations
+
 _integer_：`int`, `uint` and `vectors` of them<br>
 _floating-point_：`float`, `double` and `vectors` of them and `matrices` of them<br>
 _arithmetic_：all _integer_ and _floating-point_ types<br>
@@ -415,6 +416,8 @@ mat3 m3 = m * s; // = mat3(10.0)
 ~~~
 
 未完待续！
+
+
 <!-- 
 ##### Computational Invariance
 ##### Shader Preprocessor
