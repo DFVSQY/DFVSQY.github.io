@@ -132,6 +132,10 @@ friends: [
         href: "http://www.skywind.me/blog/"
     },
     {
+        title: "冯东Blog",
+        href: "https://techsingular.net"
+    },
+    {
         title: "SelfShadow",
         href: "https://blog.selfshadow.com/"
     },
