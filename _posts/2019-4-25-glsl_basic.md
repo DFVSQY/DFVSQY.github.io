@@ -471,6 +471,21 @@ continue        | Terminates the current iteration of the enclosing block of a l
 return [result] | Returns from the current function, optionally providing a value to be returned from the function (assuming return value matches the return type of the enclosing function).
 discard         | Discards the current fragment and ceases shader execution. Discard statements are valid only in fragment shader programs.<br>The execution of the fragment shader may be terminated at the execution of the discard statement, but this is implementation-dependent.
 
+GLSL中也支持自定义函数，在一个shader对象（shader object）中定义的函数可以在多个Shader程序（shader program）中重复使用。
+
+GLSL的函数声明和C语言类似，只不过在参数中存在可选的访问修饰符，如下：
+~~~ 
+// 其中GLSL函数名称不能以数字，gl_或者双下划线 `__`开头
+// 数组用于返回类型或者参数类型时必须显式地指定数组的大小
+returnType functionName([accessModifier] type1 arg0,
+                        [accessModifier] type2 arg1,
+                        ...)
+{
+    return returnValue;         // unless returnType is 'void'
+}
+~~~
+GLSL的函数在调用之前必须有对应的函数原型声明或者函数定义，这一点同C语言相同，否则GLSL编译器会报错。如果函数在不同于调用处的shader对象（shader object）中定义，则在调用处的shader对象中使用该函数时必须进行原型声明。
+
 未完待续！
 
 
