@@ -415,6 +415,62 @@ mat3 m2 = s * m; // = mat3(10.0)
 mat3 m3 = m * s; // = mat3(10.0)
 ~~~
 
+GLSL支持`if-else`和`switch`语句，如下：
+~~~ glsl
+if(flag)
+{
+    // true clause
+}
+else
+{
+    // false clause
+}
+
+switch(int_value)
+{
+    case n:
+        // statements
+        break;
+    case m:
+        // statements
+        break;
+    case p:
+    case q:
+        // statements
+        break;
+    default:
+        // statements
+        break;
+}
+~~~
+
+GLSL支持的循环语句如下：
+~~~ glsl
+for(int i = 0; i < 10; ++i)
+{
+    // statements
+}
+
+while(n < 10)
+{
+    // statements
+}
+
+do
+{
+    // statements
+} while(n < 10)
+~~~
+
+GLSL控制流语句除了常见的`break`，`continue`，`return`之外，还支持`discard`语句：
+
+Statement       | Description
+----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+break           | Terminates execution of the block of a loop and continues execution after the scope of that block.
+continue        | Terminates the current iteration of the enclosing block of a loop, resuming execution with the next iteration of the loop.
+return [result] | Returns from the current function, optionally providing a value to be returned from the function (assuming return value matches the return type of the enclosing function).
+discard         | Discards the current fragment and ceases shader execution. Discard statements are valid only in fragment shader programs.<br>The execution of the fragment shader may be terminated at the execution of the discard statement, but this is implementation-dependent.
+
 未完待续！
 
 
