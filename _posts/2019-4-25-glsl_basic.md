@@ -495,7 +495,6 @@ const in        | Read-only value copied into a function
 out             | Value copied out of function(undefined upon entrance into the function)
 inout           | Value copied into and out of a function
 
-<br>
 
 ##### 计算的不变性
 GLSL并不保证不同shader中的同一计算会产生相同值（因为不同的shader是单独编译的，在编译时glsl编译器会对shader进行优化，不同shader使用的优化方式可能不同），这个轻微的不同可能对于多道渲染算法（multipass algorithms）有明显影响，在这种情况下GLSL提供了两种方法确保不同shader的不变量，即`invariant`和`precise`。这两种方法都会保证由图形设备完成的同一计算得到相同结果，但是无法保证不同主机或者图形设备得到相同结果。另外编译期的常量表达式由编译器计算得到，该结果同样无法保证和图形设备计算得到的结果相同，例如：
