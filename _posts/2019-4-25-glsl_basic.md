@@ -486,6 +486,77 @@ returnType functionName([accessModifier] type1 arg0,
 ~~~
 GLSL的函数在调用之前必须有对应的函数原型声明或者函数定义，这一点同C语言相同，否则GLSL编译器会报错。如果函数在不同于调用处的shader对象（shader object）中定义，则在调用处的shader对象中使用该函数时必须进行原型声明。
 
+GLSL不像C和C++一样拥有指针或者引用的概念，因此函数传参可以使用访问修饰符指定该参数是否需要复制传入或者传出函数，GLSL中支持的访问修饰符如下：
+
+Access Modifier | Description
+----------------|------------------------------------------------------------------------
+in              | Value copied into a function(default if not specified)
+const in        | Read-only value copied into a function
+out             | Value copied out of function(undefined upon entrance into the function)
+inout           | Value copied into and out of a function
+
+<br>
+
+##### 计算的不变性
+GLSL并不保证不同shader中的同一计算会产生相同值（因为不同的shader是单独编译的，在编译时glsl编译器会对shader进行优化，不同shader使用的优化方式可能不同），这个轻微的不同可能对于多道渲染算法（multipass algorithms）有明显影响，在这种情况下GLSL提供了两种方法确保不同shader的不变量，即`invariant`和`precise`。这两种方法都会保证由图形设备完成的同一计算得到相同结果，但是无法保证不同主机或者图形设备得到相同结果。另外编译期的常量表达式由编译器计算得到，该结果同样无法保证和图形设备计算得到的结果相同，例如：
+~~~ glsl
+uniform float ten;              // application sets this to 10.0
+const float f = sin(10.0);      // computed on compiler host
+float g = sin(ten);             // computed on graphics device
+
+void main()
+{
+    if(f == g)                  // f and g might be not equal
+    {
+        // do something ...
+    }
+}
+~~~
+
+`invariant`限定符可用于shader输出的任何变量，这样可保证不同shader的同一计算公式得到相同的结果。被声明为`invariant`的输出变量可以是内置变量或者自定义变量，如下：
+~~~ glsl
+invariant gl_Position;
+invariant centroid out vec3 Color;
+~~~
+
+为了调试方便可以强制所有可能会不同的变量使用`invariant`限定符，这可以通过下面的shader预处理器指令实现：
+~~~ glsl
+#pragma STDGL invariant (all)
+~~~
+
+全局的使用`invariant`可能会对性能造成影响，因为通常情况下为了保证不变性编译器会禁止可能的优化。
+
+`precise`限定符可用于任何被计算的变量或者函数返回值，该限定符并不像其名称所显示的那样是为了增加精确度，而是增加计算的可重复性。其绝大部分用于曲面细分shader以避免几何体上破裂（forming cracks）情况的出现。
+
+通常情况下如果想从同一表达式得到相同结果可以使用`precise`代替`invariant`，即便表达式所使用的值仅仅是数学意义上不影响最终结果的交换，如下`a`和`b`交换，`c`和`d`交换，甚至`a+b`和`c+d`交换：
+~~~ glsl
+Location = a * b + c * d;           ★
+~~~
+
+`precise`限定符可用于内置变量，用户自定义变量或者函数返回值，如下：
+~~~ glsl
+precise gl_Position;
+precise out vec3 Location;
+precise vec3 subdivide(vec3 p1, vec3 p2) {...}
+~~~
+`precise`可在变量被使用前的任何时刻被应用，也可以被应用于先前声明的变量。
+
+`precise`对于编译器带来的一个实际影响是类似★的表达式不能同时使用两种不同的乘法命令参与计算，例如第一种用普通乘法，第二种用混合乘加（fused multiply-and-add, fma）,因为这两种命令对同一组数值结果可能会有微小差异，而这种差异不被`precise`允许，所以编译器会直接报错。因为fma对于性能提升很重要，不能完全禁止这种用法，所以OpenGL提供了一个内置函数`fma()`让用户替代原先的操作，如下：
+~~~ glsl
+precise out float result;
+float f = c * d;
+float result = fma(a,b,f)
+~~~
+
+
+
+
+
+
+
+
+
+
 未完待续！
 
 
