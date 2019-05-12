@@ -548,8 +548,78 @@ float result = fma(a,b,f)
 ~~~
 
 
+##### Shader预处理
+与C语言相似编译shader的第一步是进行预处理，并且GLSL提供了一系列命令提供条件编译和定义数值，与C语言不同的是，GLSL没有文件包含的预处理命令(#include)。
+
+GLSL支持的预处理指令如下：
+
+Preprocessor Directive                                     | Description
+-----------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+\#define<br>\#undef                                        | Control the definition of constants and macros similar to the C preprocessor.
+\#if<br>\#ifdef<br>\#ifndef<br>\#else<br>\#elif<br>\#endif | Conditional code management similar to the C preprocessor, including the `defined` operator<br>Conditional expressions evaluate integer expressions and defined values(as specified by #define)only
+\#error text                                               | Cause the compiler to insert text(up to the first newline character)into the shader information log.
+\#pragma options                                           | Control compiler specific options
+\#extension options                                        | Specify compiler operation with respect to specified GLSL extensions
+\#version number                                           | Mandate a specific version of GLSL version support.
+\#line options                                             | Control diagnostic line numbering.
 
 
+同C语言的预处理器一样，GLSL预处理器也支持宏定义，不过与C语言不同的是它不支持字符串替换和预编译连接符。
+
+宏定义可以支持定义单一的值和带有参数的值，`#undef`则指定取消这些定义， 如下：
+~~~ glsl
+#define NUM_ELEMENTS 10
+
+#define LPos(n) gl_LightSource[(n)].position
+
+#undef LPos
+~~~
+
+GLSL也提供了一些预定义好的宏，可用于记录一些诊断信息（可以通过#error命令输出），如下：
+
+Macro Name      | Description
+----------------|--------------------------------------------------------------------------------------------------------------------
+\_\_LINE\_\_    | Line number defined by one more than the number of newline characters processed and modified by the #line directive
+\_\_FILE\_\_    | Source string number currently being processed
+\_\_VERSION\_\_ | Integer representation of the GLSL version
+
+GLSL预处理器也持支根据宏定义和整数常数的条件判断进入不同的代码段，宏定义可以通过两种方式参与条件表达式，使用`#ifdef`命令或者在`#if`和`#elif`命令中使用`defined`操作符。
+~~~ glsl
+#ifdef NUM_ELEMENTS
+// some codes
+#endif
+
+#if defined(NUM_ELEMENTS) && NUM_ELEMENTS > 3
+// some codes
+#elif NUM_ELEMENTS < 7
+// some codes
+#endif
+~~~
+
+`#pragma`可以给编译器提供额外信息以控制shader如何被编译。例如`optimize`选项可以控制编译器是否启用优化，`debug`选项用于控制shader额外的诊断信息输出。例如：
+~~~ glsl
+#pragma optimize(on)
+#pragma optimize(off)
+
+#pragma debug(on)
+#pragma debug(off)
+~~~
+
+GLSL也支持扩展，硬件厂商也可以添加自己定义的一些扩展。GLSL预处理器提供了`#extension`命令提示编译器如何处理这个扩展。对于任何一个扩展或者全部扩展都可以如下设置：
+~~~ glsl
+#extension extension_name : <directive>
+
+#extension all : <directive>
+~~~
+
+\<directive\>可选的命令如下：
+
+Directive | Description
+----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+require   | Flag and error if the extension is not supported or if the all-extension specification is used
+enable    | Give a warning if the particular extensions specified are not supported, or flag and error if the all-extension specification is used
+warn      | Give a warning if the particular extensions specified are not supported, or give a warning if andy extension use is detected during compilation
+disable   | Disable support for the particular extensions listed(that is, have the compiler act as if the extension is not supported even if it is)or all extensions if `all` is present, issuing warnings and errors as if the extension were not present.
 
 
 
